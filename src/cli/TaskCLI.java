@@ -2,7 +2,6 @@ package cli;
 
 import java.util.Scanner;
 
-
 public class TaskCLI {
 
     public void run() {
@@ -17,6 +16,9 @@ public class TaskCLI {
             switch(input) {
 
                 case "add":
+                    scan.useDelimiter("\\s+");
+                    String description = scan.nextLine();
+                    add(description);
                     System.out.println("Task added successfully (ID: 1)");
                     break;
 
@@ -37,6 +39,8 @@ public class TaskCLI {
                     break;
                     
                 case "list":
+
+                    System.out.println("Task updated successfully.");
                     break;
 
                 case "list-done":
@@ -83,6 +87,13 @@ public class TaskCLI {
         System.out.println("list-in-progress : List all in-progress tasks");
         System.out.println("exit : Terminate the program");
         System.out.println("Type 'help' for commands.");
+
+    }
+
+    private int add(String description) {
+
+        System.out.println(description);
+        return 0;
 
     }
 
