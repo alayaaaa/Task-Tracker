@@ -1,8 +1,12 @@
 package cli;
 
+import manager.TaskManager;
+
 import java.util.Scanner;
 
 public class TaskCLI {
+
+    TaskManager manager = new TaskManager();
 
     public void run() {
 
@@ -16,10 +20,9 @@ public class TaskCLI {
             switch(input) {
 
                 case "add":
-                    scan.useDelimiter("\\s+");
                     String description = scan.nextLine();
-                    add(description);
-                    System.out.println("Task added successfully (ID: 1)");
+                    int id = add(description);
+                    System.out.printf("Task added successfully (ID: %s)", id);
                     break;
 
                 case "update":
@@ -92,8 +95,8 @@ public class TaskCLI {
 
     private int add(String description) {
 
-        System.out.println(description);
-        return 0;
+        return manager.addTask(description);
+
 
     }
 
