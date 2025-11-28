@@ -1,8 +1,11 @@
 package cli;
 
 import manager.TaskManager;
+import task.Task;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskCLI {
 
@@ -72,6 +75,8 @@ public class TaskCLI {
 
             }
 
+            manager.saveTask();
+
         }
 
     }
@@ -96,7 +101,6 @@ public class TaskCLI {
     private int add(String description) {
 
         return manager.addTask(description);
-
 
     }
 

@@ -1,23 +1,26 @@
 package manager;
 
+import task.Task;
+
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
-import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.lang.reflect.Type;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import task.Task;
 
 public class TaskManager {
 
     private final String FILE_PATH = "tasks.json";
-    private final Gson gson;
+    private Gson gson;
     private List<Task> tasks;
     private int id = 0;
 
@@ -63,10 +66,28 @@ public class TaskManager {
 
     }
 
+    public void saveTask() {
+
+        gson = new GsonBuilder().setPrettyPrinting().create();
+
+        String jsonString = gson.toJson(tasks);
+
+        try(FileWriter fw = new FileWriter(FILE_PATH)) {
+
+            fw.write(jsonString);
+            
+        }catch(IOException e) {
+
+            System.out.println("An error occurred while saving the file: " + e.getMessage());
+
+        }
+
+    }
+
     public int addTask(String description) {
 
-        //Task task = new Task(id, description);
-        //tasks.add(task);
+        Task task = new Task(id, description);
+        tasks.add(task);
 
         return id++;
 
