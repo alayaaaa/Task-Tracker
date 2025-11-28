@@ -14,6 +14,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class TaskManager {
     private final String FILE_PATH = "tasks.json";
     private Gson gson;
     private List<Task> tasks;
-    private int id = 0;
+    private int id;
 
     public TaskManager() {
 
-        gson = new Gson();
+        gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).setPrettyPrinting().create();
         loadTask();
 
     }
@@ -45,7 +46,7 @@ public class TaskManager {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
             Type type = new TypeToken<ArrayList<Task>>(){}.getType();
-            
+
             List<Task> temp = gson.fromJson(br, type);
 
             if(temp != null) {
@@ -67,8 +68,6 @@ public class TaskManager {
     }
 
     public void saveTask() {
-
-        gson = new GsonBuilder().setPrettyPrinting().create();
 
         String jsonString = gson.toJson(tasks);
 

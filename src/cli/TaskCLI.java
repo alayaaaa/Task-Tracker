@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TaskCLI {
 
-    TaskManager manager = new TaskManager();
+    TaskManager manager = new TaskManager(); 
 
     public void run() {
 
