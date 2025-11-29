@@ -20,10 +20,12 @@ public class TaskCLI {
 
         while(!((input = scan.next().toLowerCase()).equals("exit"))) {
 
+            String inputTrim = scan.nextLine();
+
             switch(input) {
 
                 case "add":
-                    String description = scan.nextLine();
+                    String description = inputTrim.trim();
                     int id = add(description);
                     System.out.printf("Task added successfully (ID: %s)", id);
                     break;

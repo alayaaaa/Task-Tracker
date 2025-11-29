@@ -23,7 +23,7 @@ public class TaskManager {
     private final String FILE_PATH = "tasks.json";
     private Gson gson;
     private List<Task> tasks;
-    private int id;
+    private int id = 1;
 
     public TaskManager() {
 
@@ -54,6 +54,19 @@ public class TaskManager {
                 this.tasks = temp;
 
             }
+
+            int currentId = 0;
+            for(Task task : tasks) {
+
+                if(task.getId() > currentId) {
+
+                    currentId = task.getId();
+
+                }
+
+            }
+
+            this.id = currentId + 1;
 
         }catch(IOException e) {
 
