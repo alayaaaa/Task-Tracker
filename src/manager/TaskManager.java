@@ -1,107 +1,51 @@
 package manager;
 
 import task.Task;
+import repository.TaskDAO;
 
-import java.io.IOException;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
 
-    private final String FILE_PATH = "tasks.json";
-    private Gson gson;
     private List<Task> tasks;
-    private int id = 1;
+    private int nextId = 1;
+    private final TaskDAO persistence;
 
-    public TaskManager() {
+    public TaskManager(TaskDAO persistence) {
 
-        gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).setPrettyPrinting().create();
-        loadTask();
-
-    }
-
-    private void loadTask() {
-
-        File file = new File(FILE_PATH);
-        this.tasks = new ArrayList<>();
-
-        if(!file.exists() || file.length() == 0) {
-
-            return;
-
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-
-            Type type = new TypeToken<ArrayList<Task>>(){}.getType();
-
-            List<Task> temp = gson.fromJson(br, type);
-
-            if(temp != null) {
-
-                this.tasks = temp;
-
-            }
-
-            int currentId = 0;
-            for(Task task : tasks) {
-
-                if(task.getId() > currentId) {
-
-                    currentId = task.getId();
-
-                }
-
-            }
-
-            this.id = currentId + 1;
-
-        }catch(IOException e) {
-
-            System.err.println("Error reading file. " + e.getMessage());
-
-        }catch(JsonSyntaxException e) {
-
-            System.err.println("File contains invalid JSON syntax. " + e.getMessage());
-
-        }
+        this.persistence = persistence;
+        this.tasks = persistence.loadTasks();
+        findNextId();
 
     }
 
-    public void saveTask() {
+    private void findNextId() {
 
-        String jsonString = gson.toJson(tasks);
+        int currentId = 0;
+        for(Task task : tasks) {
 
-        try(FileWriter fw = new FileWriter(FILE_PATH)) {
+            if(task.getId() > currentId) {
 
-            fw.write(jsonString);
-            
-        }catch(IOException e) {
+                currentId = task.getId();
 
-            System.out.println("An error occurred while saving the file: " + e.getMessage());
+            }
 
         }
+
+        this.nextId = currentId + 1;
 
     }
 
     public int addTask(String description) {
 
-        Task task = new Task(id, description);
+        Task task = new Task(nextId, description);
         tasks.add(task);
 
-        return id++;
+        persistence.saveTasks(tasks);
+
+        return nextId++;
 
     }
 

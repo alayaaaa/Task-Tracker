@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Task {
     
     //Fields
-    private int id;
+    private final int id;
     private String description;
     private TaskStatus status;
     private LocalDateTime createdAt;
@@ -18,12 +18,6 @@ public class Task {
         this.status = TaskStatus.TODO;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-
-    }
-
-    public Task() {
-
-        
 
     }
 

@@ -1,7 +1,7 @@
 package cli;
 
 import manager.TaskManager;
-import task.Task;
+import repository.TaskDAOImpl;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TaskCLI {
 
-    TaskManager manager = new TaskManager(); 
+    TaskManager manager = new TaskManager(new TaskDAOImpl());
 
     public void run() {
 
@@ -76,8 +76,6 @@ public class TaskCLI {
                     break;
 
             }
-
-            manager.saveTask();
 
         }
 

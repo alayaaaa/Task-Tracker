@@ -1,4 +1,4 @@
-package manager;
+package repository;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
