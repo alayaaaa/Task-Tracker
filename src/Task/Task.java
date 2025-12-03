@@ -27,6 +27,18 @@ public class Task {
 
     }
 
+    public void setDescription(String description) {
+
+        this.description = description;
+
+    }
+
+    public void setUpdatedAt() {
+
+        this.updatedAt = LocalDateTime.now();
+
+    }
+
     public void setInProgress() {
 
         this.status = TaskStatus.IN_PROGRESS;

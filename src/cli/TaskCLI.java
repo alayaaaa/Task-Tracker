@@ -10,27 +10,28 @@ import java.util.List;
 public class TaskCLI {
 
     TaskManager manager = new TaskManager(new TaskDAOImpl());
+    Scanner scanner = new Scanner(System.in);
 
     public void run() {
-
-        Scanner scan = new Scanner(System.in);
 
         welcomeMessage();
         String input;
 
-        while(!((input = scan.next().toLowerCase()).equals("exit"))) {
-
-            String inputTrim = scan.nextLine();
+        while(!((input = scanner.next().toLowerCase()).equals("exit"))) {
 
             switch(input) {
 
                 case "add":
-                    String description = inputTrim.trim();
+                    String description = scanner.nextLine().trim();
                     int id = add(description);
                     System.out.printf("Task added successfully (ID: %s)", id);
                     break;
 
                 case "update":
+
+                    int newId = scanner.nextInt();
+                    String newDescription = scanner.nextLine().trim();
+                    update(newId, newDescription);
                     System.out.println("Task updated successfully.");
                     break;
 
@@ -62,7 +63,7 @@ public class TaskCLI {
 
                 case "help":
                     System.out.println("add [description] : Add a new task");
-                    System.out.println("update [id] [description]: Update an existing task");
+                    System.out.println("update [id] [description] : Update an existing task");
                     System.out.println("delete [id] [description] : Delete a new task");
                     System.out.println("list : List all tasks");
                     System.out.println("list-done : List all finished tasks");
@@ -101,6 +102,12 @@ public class TaskCLI {
     private int add(String description) {
 
         return manager.addTask(description);
+
+    }
+
+    private void update(int id, String description) {
+
+        manager.updateTask(id, description);
 
     }
 

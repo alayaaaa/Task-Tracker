@@ -49,4 +49,35 @@ public class TaskManager {
 
     }
 
+    private int findTask(int id) {
+
+        for(int i = 0; i < tasks.size(); i++) {
+
+            Task task = tasks.get(i);
+            
+            if(task.getId() == id) {
+
+                return i;
+
+            }
+
+        }
+
+        return -1;
+
+
+    }
+
+    public void updateTask(int id, String newDescription) {
+
+        int index = findTask(id);
+
+        tasks.get(index).setDescription(newDescription);
+        tasks.get(index).setUpdatedAt();
+
+        persistence.saveTasks(tasks);
+
+    }
+
+
 }
