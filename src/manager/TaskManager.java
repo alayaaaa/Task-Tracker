@@ -79,5 +79,15 @@ public class TaskManager {
 
     }
 
+    public void deleteTask(int id) {
+
+        int index = findTask(id);
+
+        tasks.remove(index);
+        
+        persistence.saveTasks(tasks);
+
+    }
+
 
 }

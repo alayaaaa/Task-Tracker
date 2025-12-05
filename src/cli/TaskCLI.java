@@ -28,7 +28,6 @@ public class TaskCLI {
                     break;
 
                 case "update":
-
                     int newId = scanner.nextInt();
                     String newDescription = scanner.nextLine().trim();
                     update(newId, newDescription);
@@ -36,6 +35,8 @@ public class TaskCLI {
                     break;
 
                 case "delete":
+                    int deleteId = scanner.nextInt();
+                    delete(deleteId);
                     System.out.println("Task deleted successfully.");
                     break;
 
@@ -108,6 +109,12 @@ public class TaskCLI {
     private void update(int id, String description) {
 
         manager.updateTask(id, description);
+
+    }
+
+    private void delete(int id) {
+
+        manager.deleteTask(id);
 
     }
 
