@@ -1,6 +1,7 @@
 package manager;
 
 import task.Task;
+import task.TaskStatus;
 import repository.TaskDAO;
 
 import java.time.LocalDateTime;
@@ -89,5 +90,80 @@ public class TaskManager {
 
     }
 
+    public void listTask() {
+    
+        if(tasks.isEmpty()) {
+
+            System.out.println("Your task list is empty. Use 'add <description>' to add a task.");
+            return;
+
+        }
+
+        System.out.println("---------------------------Your Tasks---------------------------");
+
+        for(Task task : tasks) {
+
+            System.out.println(task);
+
+        }
+
+        System.out.println("----------------------------------------------------------------");
+
+    }
+
+
+    public void listTask(String listType) {
+    
+        if(tasks.isEmpty()) {
+
+            System.out.println("Your task list is empty. Use 'add <description>' to add a task.");
+            return;
+
+        }
+        
+        TaskStatus statusCheck;
+        try {
+
+            statusCheck = TaskStatus.valueOf(listType.toUpperCase());
+
+        }catch(IllegalArgumentException e) {
+
+            System.out.println("Invalid status. " + e.getMessage());
+            return;
+
+        }
+
+        String statusPrint = null;
+
+        switch(statusCheck) {
+
+            case TaskStatus.TODO: 
+                statusPrint = "To Do";
+            
+            case TaskStatus.IN_PROGRESS:
+                statusPrint = "In Progress";
+
+            case TaskStatus.DONE:
+                statusPrint = "Done";
+
+        }
+
+
+        
+        System.out.printf("---------------------------Your %s Tasks---------------------------\n", statusPrint);
+
+        for(Task task : tasks) {
+
+            if(task.getStatus() == statusCheck) {
+
+                System.out.println(task);
+
+            }
+            
+        }
+
+        System.out.println("----------------------------------------------------------------");
+
+    }
 
 }

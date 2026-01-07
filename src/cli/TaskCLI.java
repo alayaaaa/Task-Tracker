@@ -49,17 +49,19 @@ public class TaskCLI {
                     break;
                     
                 case "list":
-
-                    System.out.println("Task updated successfully.");
+                    list();
                     break;
 
                 case "list-done":
+                    listDone();
                     break;
 
                 case "list-todo":
+                    listTODO();
                     break;
 
                 case "list-in-progress":
+                    listInProgress();
                     break;
 
                 case "help":
@@ -115,6 +117,30 @@ public class TaskCLI {
     private void delete(int id) {
 
         manager.deleteTask(id);
+
+    }
+
+    private void list() {
+
+        manager.listTask();
+
+    }
+
+    private void listTODO() {
+
+        manager.listTask("TODO");
+
+    }
+
+    private void listInProgress() {
+
+        manager.listTask("IN_PROGRESS");
+
+    }
+
+    private void listDone() {
+
+        manager.listTask("DONE");
 
     }
 

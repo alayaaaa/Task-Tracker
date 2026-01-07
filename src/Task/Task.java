@@ -1,6 +1,7 @@
 package task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     
@@ -50,6 +51,25 @@ public class Task {
 
         this.status = TaskStatus.DONE;
         this.updatedAt = LocalDateTime.now();
+
+    }
+
+    public TaskStatus getStatus() {
+
+        return this.status;
+
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format("ID: %d | Description: %s | Status: %s | Created At: %s | Updated At: %s |", 
+            this.id, 
+            this.description, 
+            this.status, 
+            this.createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), 
+            this.updatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        );
 
     }
 

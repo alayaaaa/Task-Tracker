@@ -75,7 +75,7 @@ public class TaskDAOImpl implements TaskDAO {
             
         }catch(IOException e) {
 
-            System.err.println("An error occurred while saving the file: " + e.getMessage());
+            System.err.println("An error occurred while attempting to save the file: " + e.getMessage());
 
         }
 
