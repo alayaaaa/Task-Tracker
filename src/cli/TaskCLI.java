@@ -4,8 +4,6 @@ import manager.TaskManager;
 import repository.TaskDAOImpl;
 
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TaskCLI {
 
@@ -31,21 +29,21 @@ public class TaskCLI {
                     int newId = scanner.nextInt();
                     String newDescription = scanner.nextLine().trim();
                     update(newId, newDescription);
-                    System.out.println("Task updated successfully.");
                     break;
 
                 case "delete":
                     int deleteId = scanner.nextInt();
                     delete(deleteId);
-                    System.out.println("Task deleted successfully.");
                     break;
 
                 case "mark-in-progress":
-                    System.out.println("Task updated successfully.");
+                    int inProgressId = scanner.nextInt();
+                    markInProgress(inProgressId);
                     break;
 
                 case "mark-done":
-                    System.out.println("Task updated successfully.");
+                    int doneId = scanner.nextInt();
+                    markDone(doneId);
                     break;
                     
                 case "list":
@@ -82,6 +80,8 @@ public class TaskCLI {
             }
 
         }
+
+        scanner.close();
 
     }
 
@@ -141,6 +141,18 @@ public class TaskCLI {
     private void listDone() {
 
         manager.listTask("DONE");
+
+    }
+
+    private void markInProgress(int id) {
+
+        manager.markInProgress(id);
+
+    }
+
+    private void markDone(int id) {
+
+        manager.markDone(id);
 
     }
 

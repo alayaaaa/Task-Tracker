@@ -28,6 +28,12 @@ public class Task {
 
     }
 
+    public TaskStatus getStatus() {
+
+        return this.status;
+
+    }
+
     public void setDescription(String description) {
 
         this.description = description;
@@ -54,9 +60,9 @@ public class Task {
 
     }
 
-    public TaskStatus getStatus() {
+    public void setStatus(TaskStatus status) {
 
-        return this.status;
+        this.status = status;
 
     }
 

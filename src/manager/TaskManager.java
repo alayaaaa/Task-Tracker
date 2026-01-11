@@ -71,7 +71,21 @@ public class TaskManager {
 
     public void updateTask(int id, String newDescription) {
 
+        if(tasks.isEmpty()) {
+
+            System.out.println("Your task list is empty. Use 'add <description>' to add a task.");
+            return;
+
+        }
+
         int index = findTask(id);
+
+        if (index == -1) {
+
+            System.out.println("Task ID " + id + " not found.");
+            return;
+
+        }
 
         tasks.get(index).setDescription(newDescription);
         tasks.get(index).setUpdatedAt();
@@ -82,7 +96,21 @@ public class TaskManager {
 
     public void deleteTask(int id) {
 
+        if(tasks.isEmpty()) {
+
+            System.out.println("Your task list is empty. Use 'add <description>' to add a task.");
+            return;
+
+        }
+
         int index = findTask(id);
+
+        if (index == -1) {
+
+            System.out.println("Task ID " + id + " not found.");
+            return;
+
+        }
 
         tasks.remove(index);
         
@@ -111,7 +139,6 @@ public class TaskManager {
 
     }
 
-
     public void listTask(String listType) {
     
         if(tasks.isEmpty()) {
@@ -139,12 +166,15 @@ public class TaskManager {
 
             case TaskStatus.TODO: 
                 statusPrint = "To Do";
+                break;
             
             case TaskStatus.IN_PROGRESS:
                 statusPrint = "In Progress";
+                break;
 
             case TaskStatus.DONE:
                 statusPrint = "Done";
+                break;
 
         }
 
@@ -166,4 +196,36 @@ public class TaskManager {
 
     }
 
+    public void markInProgress(int id) {
+
+        int index = findTask(id);
+
+        if (index == -1) {
+
+            System.out.println("Task ID " + id + " not found.");
+            return;
+
+        }
+
+        tasks.get(index).setStatus(TaskStatus.IN_PROGRESS);
+
+        persistence.saveTasks(tasks);
+
+    }
+
+    public void markDone(int id) {
+
+        int index = findTask(id);
+
+        if (index == -1) {
+
+            System.out.println("Task ID " + id + " not found.");
+            return;
+
+        }
+
+        tasks.get(index).setStatus(TaskStatus.DONE);
+        persistence.saveTasks(tasks);
+
+    }
 }
