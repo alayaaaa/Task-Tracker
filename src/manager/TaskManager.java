@@ -4,8 +4,6 @@ import task.Task;
 import task.TaskStatus;
 import repository.TaskDAO;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
@@ -39,14 +37,17 @@ public class TaskManager {
 
     }
 
-    public int addTask(String description) {
+    public void addTask(String description) {
 
         Task task = new Task(nextId, description);
         tasks.add(task);
 
         persistence.saveTasks(tasks);
 
-        return nextId++;
+        System.out.printf("Task added successfully. (ID: %s)", nextId);
+        System.out.println();
+
+        nextId++;
 
     }
 
@@ -92,6 +93,9 @@ public class TaskManager {
 
         persistence.saveTasks(tasks);
 
+        System.out.printf("Task updated successfully. (ID: %s)", id);
+        System.out.println();
+
     }
 
     public void deleteTask(int id) {
@@ -115,6 +119,9 @@ public class TaskManager {
         tasks.remove(index);
         
         persistence.saveTasks(tasks);
+
+        System.out.printf("Task deleted successfully. (ID: %s)", id);
+        System.out.println();
 
     }
 
@@ -211,6 +218,9 @@ public class TaskManager {
 
         persistence.saveTasks(tasks);
 
+        System.out.printf("Task updated successfully. (ID: %s)", id);
+        System.out.println();
+
     }
 
     public void markDone(int id) {
@@ -227,5 +237,8 @@ public class TaskManager {
         tasks.get(index).setStatus(TaskStatus.DONE);
         persistence.saveTasks(tasks);
 
+        System.out.printf("Task updated successfully. (ID: %s)", id);
+        System.out.println();
+        
     }
 }

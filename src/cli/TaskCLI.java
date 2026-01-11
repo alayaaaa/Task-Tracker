@@ -21,29 +21,35 @@ public class TaskCLI {
 
                 case "add":
                     String description = scanner.nextLine().trim();
-                    int id = add(description);
-                    System.out.printf("Task added successfully (ID: %s)", id);
+                    add(description);
                     break;
 
                 case "update":
-                    int newId = scanner.nextInt();
-                    String newDescription = scanner.nextLine().trim();
-                    update(newId, newDescription);
+                    if(scanner.hasNextInt()) {
+
+                        int newId = scanner.nextInt();
+                        String newDescription = scanner.nextLine().trim();
+                        update(newId, newDescription);
+
+                    }else {
+
+                        System.out.println("Error: ID must be a number.");
+                        scanner.nextLine();
+
+                    }
+
                     break;
 
                 case "delete":
-                    int deleteId = scanner.nextInt();
-                    delete(deleteId);
+                    intHandling(this::delete);
                     break;
 
                 case "mark-in-progress":
-                    int inProgressId = scanner.nextInt();
-                    markInProgress(inProgressId);
+                    intHandling(this::markInProgress);
                     break;
 
                 case "mark-done":
-                    int doneId = scanner.nextInt();
-                    markDone(doneId);
+                    intHandling(this::markDone);
                     break;
                     
                 case "list":
@@ -102,9 +108,9 @@ public class TaskCLI {
 
     }
 
-    private int add(String description) {
+    private void add(String description) {
 
-        return manager.addTask(description);
+        manager.addTask(description);
 
     }
 
@@ -153,6 +159,24 @@ public class TaskCLI {
     private void markDone(int id) {
 
         manager.markDone(id);
+
+    }
+
+    // A helper method to handle commands that require an ID.
+    private void intHandling(java.util.function.IntConsumer action) {
+
+        if (scanner.hasNextInt()) {
+
+            int id = scanner.nextInt();
+            action.accept(id);
+            scanner.nextLine(); 
+
+        } else {
+
+            System.out.println("Error: Invalid ID provided. Please enter a number.");
+            scanner.nextLine();
+
+        }
 
     }
 
