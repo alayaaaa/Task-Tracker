@@ -171,15 +171,15 @@ public class TaskManager {
 
         switch(statusCheck) {
 
-            case TaskStatus.TODO: 
+            case TODO:
                 statusPrint = "To Do";
                 break;
             
-            case TaskStatus.IN_PROGRESS:
+            case IN_PROGRESS:
                 statusPrint = "In Progress";
                 break;
 
-            case TaskStatus.DONE:
+            case DONE:
                 statusPrint = "Done";
                 break;
 
