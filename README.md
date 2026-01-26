@@ -13,33 +13,26 @@ A simple, command-line interface (CLI) task management application built in Java
 
 ## 💻 Prerequisites
 
-1. Ensure you have the `Java (JDK 17+)` and `Git` installed on your machine.
-2. Ensure you have a lib folder in the project root containing the `gson-2.10.1.jar`.
+Ensure you have the `Java (JDK 17+)` and `Git` installed on your machine.
 
 ## 💻 How to Run
 
-1. Clone the reponsitory:
+1. Clone the repository:
    
     ```
     git clone https://github.com/alayaaaa/Task-Tracker
     ```
     
-3. Navigate to the project directory:
+2. Navigate to the project directory:
    
     ```
-    cd task-tracker-cli
+    cd Task-Tracker
     ```
     
-5. Compile the code:
+3. Build and Run using Maven:
    
     ```
-    javac -d bin -sourcepath src -cp "lib/*" src/Application.java
-    ```
-    
-7. Run the application:
-   
-    ```
-    java -cp "bin;lib/*" Application
+    .\mvnw.cmd clean compile exec:java -Dexec.mainClass="Application"
     ```
 
 ## 📖 Usage Example
@@ -75,9 +68,9 @@ src
 
 ## 🛠️ Tech Stack
 
-- Java
-- GSON
-- JSON
+* **Language:** Java
+* **Build Tool:** Maven
+* **Libraries:** Gson
 
 ## 🚧 Future Improvements
 
