@@ -1,15 +1,21 @@
 package task;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
     
     //Fields
-    private final int id;
+    private int id;
     private String description;
     private TaskStatus status;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdAt;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime updatedAt;
 
     public Task(int id, String description) {
@@ -22,9 +28,23 @@ public class Task {
 
     }
 
+    /**
+     * Constructor for Jackson
+     */
+    public Task() {
+
+    }
+
+    //Getters
     public int getId() {
 
         return this.id;
+
+    }
+
+    public String getDescription() {
+
+        return this.description;
 
     }
 
@@ -34,6 +54,19 @@ public class Task {
 
     }
 
+    public LocalDateTime getCreatedAt() {
+
+        return this.createdAt;
+
+    }
+
+    public LocalDateTime getUpdatedAt() {
+
+        return updatedAt;
+
+    }
+
+    //Setters
     public void setDescription(String description) {
 
         this.description = description;
@@ -73,7 +106,7 @@ public class Task {
             this.id, 
             this.description, 
             this.status, 
-            this.createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), 
+            this.createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
             this.updatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         );
 
