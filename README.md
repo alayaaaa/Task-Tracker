@@ -57,7 +57,6 @@ src
 ├── manager
 │   └── TaskManager.java
 ├── repository
-│   ├── LocalDateTimeAdapter.java
 │   ├── TaskDAO.java
 │   └── TaskDAOImpl.java
 ├── task
@@ -70,7 +69,7 @@ src
 
 * **Language:** Java
 * **Build Tool:** Maven
-* **Libraries:** Gson
+* **Libraries:** Jackson
 
 ## 🚧 Future Improvements
 
