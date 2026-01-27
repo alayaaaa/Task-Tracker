@@ -2,4 +2,4 @@
 tasks.json
 /.idea/
 /Task Tracker.iml
-.target
+target/

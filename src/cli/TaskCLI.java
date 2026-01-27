@@ -3,6 +3,7 @@ package cli;
 import manager.TaskManager;
 import repository.TaskDAOImpl;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class TaskCLI {
@@ -68,6 +69,18 @@ public class TaskCLI {
                     listInProgress();
                     break;
 
+                case "list-between":
+                    String from = scanner.next();
+                    String to = scanner.next();
+                    String isUpdated = scanner.next();
+
+                    boolean isUpdatedBool = Boolean.parseBoolean(isUpdated);
+
+                    scanner.nextLine();
+
+                    listBetween(from, to, isUpdatedBool);
+                    break;
+
                 case "help":
                     System.out.println("add [description] : Add a new task");
                     System.out.println("update [id] [description] : Update an existing task");
@@ -76,6 +89,7 @@ public class TaskCLI {
                     System.out.println("list-done : List all finished tasks");
                     System.out.println("list-todo : List all to-do tasks");
                     System.out.println("list-in-progress : List all in-progress tasks");
+                    System.out.println("list-between [start_date] [end_date] [is_updated (true/false)] : List tasks within a date range (YYYY-MM-DD) based on created/updated date");
                     System.out.println("exit : Terminate the program");
                     break;
 
@@ -103,6 +117,7 @@ public class TaskCLI {
         System.out.println("list-done : List all finished tasks");
         System.out.println("list-todo : List all to-do tasks");
         System.out.println("list-in-progress : List all in-progress tasks");
+        System.out.println("list-between [start_date] [end_date] [is_updated (true/false)] : List tasks within a date range (YYYY-MM-DD) based on created/updated date");
         System.out.println("exit : Terminate the program");
         System.out.println("Type 'help' for commands.");
 
@@ -162,6 +177,23 @@ public class TaskCLI {
 
     }
 
+    private void listBetween(String from, String to, boolean isUpdated) {
+
+        try {
+
+            LocalDate fromDate = dateParser(from);
+            LocalDate toDate = dateParser(to);
+
+            manager.listBetween(fromDate, toDate, isUpdated);
+
+        }catch(Exception e) {
+
+            System.err.println("Invalid date format. Please use YYYY-MM-DD.");
+
+        }
+
+    }
+
     // A helper method to handle commands that require an ID.
     private void intHandling(java.util.function.IntConsumer action) {
 
@@ -177,6 +209,13 @@ public class TaskCLI {
             scanner.nextLine();
 
         }
+
+    }
+
+    // A helper method that converts user input to LocalDate
+    private LocalDate dateParser(String date) {
+
+        return LocalDate.parse(date);
 
     }
 

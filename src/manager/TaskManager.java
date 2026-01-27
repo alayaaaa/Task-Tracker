@@ -4,6 +4,8 @@ import task.Task;
 import task.TaskStatus;
 import repository.TaskDAO;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class TaskManager {
@@ -23,9 +25,9 @@ public class TaskManager {
     private void findNextId() {
 
         int currentId = 0;
-        for(Task task : tasks) {
+        for (Task task : tasks) {
 
-            if(task.getId() > currentId) {
+            if (task.getId() > currentId) {
 
                 currentId = task.getId();
 
@@ -53,11 +55,11 @@ public class TaskManager {
 
     private int findTask(int id) {
 
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
 
             Task task = tasks.get(i);
-            
-            if(task.getId() == id) {
+
+            if (task.getId() == id) {
 
                 return i;
 
@@ -72,7 +74,7 @@ public class TaskManager {
 
     public void updateTask(int id, String newDescription) {
 
-        if(tasks.isEmpty()) {
+        if (tasks.isEmpty()) {
 
             System.out.println("Your task list is empty. Use 'add <description>' to add a task.");
             return;
@@ -100,7 +102,7 @@ public class TaskManager {
 
     public void deleteTask(int id) {
 
-        if(tasks.isEmpty()) {
+        if (tasks.isEmpty()) {
 
             System.out.println("Your task list is empty. Use 'add <description>' to add a task.");
             return;
@@ -117,7 +119,7 @@ public class TaskManager {
         }
 
         tasks.remove(index);
-        
+
         persistence.saveTasks(tasks);
 
         System.out.printf("Task deleted successfully. (ID: %s)", id);
@@ -126,8 +128,8 @@ public class TaskManager {
     }
 
     public void listTask() {
-    
-        if(tasks.isEmpty()) {
+
+        if (tasks.isEmpty()) {
 
             System.out.println("Your task list is empty. Use 'add <description>' to add a task.");
             return;
@@ -136,7 +138,7 @@ public class TaskManager {
 
         System.out.println("---------------------------Your Tasks---------------------------");
 
-        for(Task task : tasks) {
+        for (Task task : tasks) {
 
             System.out.println(task);
 
@@ -147,20 +149,20 @@ public class TaskManager {
     }
 
     public void listTask(String listType) {
-    
-        if(tasks.isEmpty()) {
+
+        if (tasks.isEmpty()) {
 
             System.out.println("Your task list is empty. Use 'add <description>' to add a task.");
             return;
 
         }
-        
+
         TaskStatus statusCheck;
         try {
 
             statusCheck = TaskStatus.valueOf(listType.toUpperCase());
 
-        }catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
 
             System.out.println("Invalid status. " + e.getMessage());
             return;
@@ -169,12 +171,12 @@ public class TaskManager {
 
         String statusPrint = null;
 
-        switch(statusCheck) {
+        switch (statusCheck) {
 
             case TODO:
                 statusPrint = "To Do";
                 break;
-            
+
             case IN_PROGRESS:
                 statusPrint = "In Progress";
                 break;
@@ -186,17 +188,16 @@ public class TaskManager {
         }
 
 
-        
         System.out.printf("---------------------------Your %s Tasks---------------------------\n", statusPrint);
 
-        for(Task task : tasks) {
+        for (Task task : tasks) {
 
-            if(task.getStatus() == statusCheck) {
+            if (task.getStatus() == statusCheck) {
 
                 System.out.println(task);
 
             }
-            
+
         }
 
         System.out.println("----------------------------------------------------------------");
@@ -239,6 +240,41 @@ public class TaskManager {
 
         System.out.printf("Task updated successfully. (ID: %s)", id);
         System.out.println();
-        
+
     }
+
+    public void listBetween(LocalDate from, LocalDate to, boolean isUpdated) {
+
+        if (isUpdated) {
+
+            for (Task task : tasks) {
+
+                LocalDate taskDate = task.getCreatedAt().toLocalDate();
+
+                if (!taskDate.isBefore(from) && !taskDate.isAfter(to)) {
+
+                    System.out.println(task);
+
+                }
+
+            }
+
+        } else {
+
+            for (Task task : tasks) {
+
+                LocalDate taskDate = task.getCreatedAt().toLocalDate();
+
+                if (!taskDate.isBefore(from) && !taskDate.isAfter(to)) {
+
+                    System.out.println(task);
+
+                }
+
+            }
+
+        }
+
+    }
+
 }
