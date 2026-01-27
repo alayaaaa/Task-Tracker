@@ -243,7 +243,7 @@ public class TaskManager {
 
     }
 
-    public void listBetween(LocalDate from, LocalDate to, boolean isUpdated) {
+    public void filterBetween(LocalDate from, LocalDate to, boolean isUpdated) {
 
         if (isUpdated) {
 

@@ -78,7 +78,7 @@ public class TaskCLI {
 
                     scanner.nextLine();
 
-                    listBetween(from, to, isUpdatedBool);
+                    filterBetween(from, to, isUpdatedBool);
                     break;
 
                 case "help":
@@ -89,7 +89,7 @@ public class TaskCLI {
                     System.out.println("list-done : List all finished tasks");
                     System.out.println("list-todo : List all to-do tasks");
                     System.out.println("list-in-progress : List all in-progress tasks");
-                    System.out.println("list-between [start_date] [end_date] [is_updated (true/false)] : List tasks within a date range (YYYY-MM-DD) based on created/updated date");
+                    System.out.println("filter-between [start_date] [end_date] [is_updated (true/false)] : List tasks within a date range (YYYY-MM-DD) based on created/updated date");
                     System.out.println("exit : Terminate the program");
                     break;
 
@@ -117,7 +117,7 @@ public class TaskCLI {
         System.out.println("list-done : List all finished tasks");
         System.out.println("list-todo : List all to-do tasks");
         System.out.println("list-in-progress : List all in-progress tasks");
-        System.out.println("list-between [start_date] [end_date] [is_updated (true/false)] : List tasks within a date range (YYYY-MM-DD) based on created/updated date");
+        System.out.println("filter-between [start_date] [end_date] [is_updated (true/false)] : List tasks within a date range (YYYY-MM-DD) based on created/updated date");
         System.out.println("exit : Terminate the program");
         System.out.println("Type 'help' for commands.");
 
@@ -177,14 +177,14 @@ public class TaskCLI {
 
     }
 
-    private void listBetween(String from, String to, boolean isUpdated) {
+    private void filterBetween(String from, String to, boolean isUpdated) {
 
         try {
 
             LocalDate fromDate = dateParser(from);
             LocalDate toDate = dateParser(to);
 
-            manager.listBetween(fromDate, toDate, isUpdated);
+            manager.filterBetween(fromDate, toDate, isUpdated);
 
         }catch(Exception e) {
 
