@@ -8,6 +8,7 @@ A simple, command-line interface (CLI) task management application built in Java
 - **Update Tasks:** Modify descriptions of existing tasks
 - **Delete Tasks:** Permanently remove tasks
 - **List Tasks:** List all tasks of filter by status: todo, in-progress, done
+- **Filter Tasks:** Filter tasks between dates based on date created or updated
 - **Update Status:** Update the status of existing tasks
 - **Data Persistence:** Automatically saves and loads tasks so data is never lost
 
@@ -73,6 +74,5 @@ src
 
 ## 🚧 Future Improvements
 
-- Sort tasks by Last Updated or Date Created
 - Add priority levels
 - Add an option to set deadline dates to tasks
